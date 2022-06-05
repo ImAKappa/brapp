@@ -2,14 +2,37 @@
   import logo from './assets/svelte.png'
   import Counter from './lib/Counter.svelte'
   import Birthday from './lib/Birthday.svelte';
+
+  let birthdays =[
+    {id: 1, name: 'Jesus Christ', date: new Date('December 25, 1001'),},
+    {id: 2, name: 'Einstein', date: new Date('March 14, 1879'),},
+    {id: 3, name: 'Gandhi', date: new Date('October 2, 1869'),},
+  ];
+
+  function updateBirthdays() {
+
+    console.info('New birthday added!');
+  }
 </script>
 
 <main>
   <img src={logo} alt="Svelte Logo" />
   <h1>Hello world!</h1>
   <p>BRAPP: Birthday reminder app</p>
+
+  <!-- Birthday creation form -->
+  <div class="new-birthday">
+    <p>Name</p>
+    <input class="new-name" type="text" placeholder="Enter name">
+    <p>Date</p>
+    <input class="new-date" type="date">
+    <button on:click={updateBirthdays}>Add birthday</button>
+  </div>
+
   <Counter />
-  <Birthday name={'Jesus Christ'} date={new Date()} />
+  {#each birthdays as birthday (birthday.id)}
+    <Birthday {...birthday} />
+  {/each}
 </main>
 
 <style>
