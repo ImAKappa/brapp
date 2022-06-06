@@ -8,5 +8,5 @@ Birthday Reminder App
     - [ ] Display list for Read
     - [ ] Edit buttons for Update
     - [ ] Delete buttons for Delete
+- [ ] Export to calendar (.iso)
 - [ ] notification system
-    - [ ]

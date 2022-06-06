@@ -3,36 +3,74 @@
   import Counter from './lib/Counter.svelte'
   import Birthday from './lib/Birthday.svelte';
 
-  let birthdays =[
+  let birthdays = [
     {id: 1, name: 'Jesus Christ', date: new Date('December 25, 1001'),},
     {id: 2, name: 'Einstein', date: new Date('March 14, 1879'),},
     {id: 3, name: 'Gandhi', date: new Date('October 2, 1869'),},
   ];
 
-  function updateBirthdays() {
+  let newBirthdayName = '';
+  let newBirthdayDate = null;
 
-    console.info('New birthday added!');
+  const sortBirthdays = (birthdays, key) => {
+    console.info(`Sorted birthdays by ${key}`);
+    return;
+  }
+
+  function createBirthday() {
+    newBirthdayName = newBirthdayName.trim();
+    let birthday = {
+      id: Math.random(),
+      name: newBirthdayName,
+      date: newBirthdayDate,
+    }
+    birthdays = [...birthdays, birthday];
+    console.info(`New birthday added:`, birthday);
+    newBirthdayName = '';
+    newBirthdayDate = null;
+    return;
+  }
+
+  function deleteBirthday(id) {
+    return;
+  }
+
+  function exportBirthdays() {
+    console.info('Exported birthdays to calendar (.iso)');
+    return;
   }
 </script>
 
 <main>
-  <img src={logo} alt="Svelte Logo" />
-  <h1>Hello world!</h1>
-  <p>BRAPP: Birthday reminder app</p>
+  <!-- BRAPP Logo -->
+  <img src={logo} alt="Birthday Reminder App Logo" />
+  <h1 class="app-title">BRAPP: Birthday reminder app</h1>
 
-  <!-- Birthday creation form -->
-  <div class="new-birthday">
-    <p>Name</p>
-    <input class="new-name" type="text" placeholder="Enter name">
-    <p>Date</p>
-    <input class="new-date" type="date">
-    <button on:click={updateBirthdays}>Add birthday</button>
+  <!-- Add birthday form -->
+  <div class="add-birthday-form">
+    <form action="" on:submit|preventDefault={createBirthday}>
+      <p>Name</p>
+      <input class="add-birthday-name" type="text" placeholder="Enter name" bind:value={newBirthdayName} required>
+      <p>Date</p>
+      <input class="add-birthday-date" type="date" bind:value={newBirthdayDate} required>
+      <button class="btn add-birthday-btn">Add birthday</button>
+    </form>
+ 
   </div>
 
   <Counter />
-  {#each birthdays as birthday (birthday.id)}
-    <Birthday {...birthday} />
-  {/each}
+
+  <!-- Display list of birthdays, sorted by upcoming date -->
+  <div class="container">
+    <button on:click={exportBirthdays}>Export Birthdays to Calendar</button>
+    <ul class="birthday-list">
+      {#each birthdays as birthday (birthday.id)}
+        <li>
+          <Birthday {...birthday} />
+        </li>
+      {/each}
+    </ul>
+  </div>
 </main>
 
 <style>

@@ -8,6 +8,7 @@
     <p>Id: {id}</p>
     <p>Name: {name}</p>
     <p>Date: {date}</p>
+    <button class="delete-birthday">X</button>
 </div>
 
 <style>
